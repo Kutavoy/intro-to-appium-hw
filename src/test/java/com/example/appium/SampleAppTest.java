@@ -15,7 +15,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
-import java.net.MalformedURLException;
 
 import static java.lang.System.getenv;
 
@@ -45,7 +44,7 @@ public class SampleAppTest {
             ((AndroidDriver<MobileElement>) driver).startActivity(new Activity("io.appium.android.apis", ".view.TextFields"));
         } else {
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
-            capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13.4.1 (13F100)"); //xcode ver
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13.4.1 (13F100)");
             capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCuiTest");
             capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 8 Simulator (15.5)");
             capabilities.setCapability(MobileCapabilityType.UDID, "42EDCE19-3F65-4D03-83A7-618E4A5F0C24");
