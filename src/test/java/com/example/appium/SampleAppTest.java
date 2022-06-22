@@ -9,16 +9,22 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import static java.lang.System.getenv;
-import static org.testng.Assert.assertEquals;
 
 public class SampleAppTest {
     private AppiumDriverLocalService server;
     private AppiumDriver<MobileElement> driver;
+    private String apkpath="/Users/anton.zhdanov/github-demo/java-basics-hw15-appium/TestApp.app.zip";
+    private File app=new File(apkpath);
+
 
     @BeforeClass
     private void setUp() {
@@ -29,7 +35,7 @@ public class SampleAppTest {
 
         if (platform.equals("ANDROID")) {
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "PUT_YOUR_DEVICE_NAME");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy Nexus");
             capabilities.setCapability(MobileCapabilityType.APP, path + "/ApiDemos-debug.apk");
 
             server = new AppiumServiceBuilder().usingAnyFreePort().build();
@@ -39,10 +45,10 @@ public class SampleAppTest {
             ((AndroidDriver<MobileElement>) driver).startActivity(new Activity("io.appium.android.apis", ".view.TextFields"));
         } else {
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
-            capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "PUT_YOUR_XCODE_VERSION_HERE");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13.4.1 (13F100)"); //xcode ver
             capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCuiTest");
-            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "PUT_YOUR_DEVICE_NAME_HERE");
-            capabilities.setCapability(MobileCapabilityType.UDID, "PUT_YOUR_DEVICE_UDID_HERE");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 8 Simulator (15.5)");
+            capabilities.setCapability(MobileCapabilityType.UDID, "42EDCE19-3F65-4D03-83A7-618E4A5F0C24");
             capabilities.setCapability(MobileCapabilityType.APP, path + "/TestApp.app.zip");
 
             server = new AppiumServiceBuilder().usingAnyFreePort().build();
@@ -53,10 +59,11 @@ public class SampleAppTest {
 
     @Test
     public void textFieldTest() {
-        // TODO initialise PageView and set "text" to its textField
-
-        // TODO assert that textField equals to "text"
+        PageView view = new PageView(driver);
+        view.setTextField("test");
+        Assert.assertEquals (view.getTextField(),"test", "Text is wrong");
     }
+
 
     @AfterClass
     public void tearDown() {
