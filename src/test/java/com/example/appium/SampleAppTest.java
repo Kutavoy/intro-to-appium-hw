@@ -21,8 +21,8 @@ import static java.lang.System.getenv;
 public class SampleAppTest {
     private AppiumDriverLocalService server;
     private AppiumDriver<MobileElement> driver;
-    private String apkpath="/Users/anton.zhdanov/github-demo/java-basics-hw15-appium/TestApp.app.zip";
-    private File app=new File(apkpath);
+    private String apkpath="/Users/alexander.kutenko/intro-to-appium-hw/TestApp.app.zip";
+    private File app = new File(apkpath);
 
 
     @BeforeClass
@@ -34,7 +34,7 @@ public class SampleAppTest {
 
         if (platform.equals("ANDROID")) {
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy Nexus");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy Note");
             capabilities.setCapability(MobileCapabilityType.APP, path + "/ApiDemos-debug.apk");
 
             server = new AppiumServiceBuilder().usingAnyFreePort().build();
